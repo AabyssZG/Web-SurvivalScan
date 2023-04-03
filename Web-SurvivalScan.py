@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 #_*_coding:utf-8_*_
 import _thread
 import time
@@ -31,6 +31,14 @@ Whoami: https://github.com/AabyssZG
 '''
     print(logo0)
 
+def file_init():
+    # 新建正常目标导出TXT
+    f1 = open("output.txt", "wb+")
+    f1.close()
+    # 新建其他报错导出TXT
+    f2 = open("outerror.txt", "wb+")
+    f2.close()
+
 def survive(url):
     try:
         header = {"User-Agent": random.choice(ua)}
@@ -58,19 +66,14 @@ def end():
         cprint("[+][+][+] 发现目标TXT有存活目标，已经导出至 output.txt ，共%d行记录" %count_out,"red")
     count_error = len(open("outerror.txt", 'r').readlines())
     if count_error >= 1:
-        cprint("[+][+][+] 发现目标TXT有错误目标，已经导出至 outerror.txt ，共%d行记录" %count_error,"red")
+        cprint("[+][-][-] 发现目标TXT有错误目标，已经导出至 outerror.txt ，共%d行记录" %count_error,"red")
 
 def main():
     logo()
+    file_init()
     # 获取目标TXT名称
     txt_name = str(input("请输入目标TXT文件名\nFileName >>> "))
     cprint("================开始读取目标TXT并批量测试站点存活================","cyan")
-    # 新建200导出TXT
-    f1 = open("output.txt", "wb+")
-    f1.close()
-    # 新建其他报错导出TXT
-    f2 = open("outerror.txt", "wb+")
-    f2.close()
     # 读取目标TXT
     with open(txt_name, 'r') as temp:
         for url in temp.readlines():
