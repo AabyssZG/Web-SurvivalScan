@@ -1,5 +1,9 @@
 #!/usr/bin/env python
-#_*_coding:utf-8_*_
+# coding=utf-8
+  ################
+ #   AabyssZG   #
+################
+
 import _thread
 import time
 import requests, sys, random
