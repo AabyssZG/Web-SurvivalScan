@@ -77,7 +77,7 @@ def survive(url:str):
         cprint("[-] URL为 " + url + " 的目标积极拒绝请求，予以跳过！", "magenta")
         return (EServival.REJECT,0,url,0)
 
-    if r.status_code == 200:
+    if r.status_code == 200 or r.status_code == 403:
         return (EServival.SURVIVE,r.status_code,url,len(r.content))
     else:        
         return (EServival.DIED,r.status_code,url,0)
