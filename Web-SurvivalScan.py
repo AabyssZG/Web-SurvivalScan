@@ -5,12 +5,20 @@
 ################
 
 import _thread
+from enum import Enum
 import time
+
 import requests, sys, random
 from tqdm import tqdm
+from typing import Optional, Tuple
 from termcolor import cprint
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
+
+class EServival(Enum):
+    REJECT = -1
+    SURVIVE = 1
+    DIED = 0
 
 ua = [
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36,Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36",
@@ -43,34 +51,51 @@ def file_init():
     f2 = open("outerror.txt", "wb+")
     f2.close()
 
-def survive(url):
+def scanLogger(result:Tuple[EServival,Optional[int],str,int]):
+    (status,code,url,length) = result
+    if status == EServival.SURVIVE:
+        cprint(f"[+] 状态码为: {code} 存活URL为: {url} 页面长度为: {length} ","red")
+    if(status == EServival.DIED):
+        cprint(f"[-] 状态码为: {code}  无法访问URL为: {url} ","yellow")
+    if(status == EServival.REJECT):
+        cprint(f"[-]   URL为: {url} 的目标积极拒绝请求，予以跳过！", "magenta")
+    
+    if(status == EServival.SURVIVE):
+        fileName = "output.txt"
+    elif(status == EServival.DIED):
+        fileName = "outerror.txt"
+    if(status == EServival.SURVIVE or status == EServival.DIED):
+        with open(file=fileName, mode="a") as file4:
+            file4.write(f"[{code}]  {url}\n")
+
+def survive(url:str):
     try:
         header = {"User-Agent": random.choice(ua)}
         requests.packages.urllib3.disable_warnings()
         r = requests.get(url=url, headers=header, timeout=6, verify=False)  # 设置超时6秒
     except:
         cprint("[-] URL为 " + url + " 的目标积极拒绝请求，予以跳过！", "magenta")
-        sys.exit()
-    if r.status_code == 200:
-        cprint("[+] 状态码%d" % r.status_code + ' ' + "存活URL为:" + url + '    ' + "页面长度为:" + str(len(r.content)),"red")
-        f3 = open("output.txt", "a")
-        f3.write(url + '\n')
-        f3.close()
-    else:
-        cprint("[-] 状态码%d" % r.status_code + ' ' + "无法访问URL为:" + url ,"yellow")
-        f4 = open("outerror.txt", "a")
-        f4.write('[' + str(r.status_code) + ']' + '  ' + url + '\n')
-        f4.close()
-    sys.exit()
+        return (EServival.REJECT,0,url,0)
+
+    if r.status_code == 200 or r.status_code == 403:
+        return (EServival.SURVIVE,r.status_code,url,len(r.content))
+    else:        
+        return (EServival.DIED,r.status_code,url,0)
+
+def getTask(filename=""):
+    if(filename != ""):
+        with open(file=filename,mode="r") as file:
+            for url in file:
+                yield url.strip()
 
 def end():
     count_out = len(open("output.txt", 'r').readlines())
     if count_out >= 1:
         print('\n')
-        cprint("[+][+][+] 发现目标TXT有存活目标，已经导出至 output.txt ，共%d行记录" %count_out,"red")
+        cprint(f"[+][+][+] 发现目标TXT有存活目标，已经导出至 output.txt ，共 {count_out} 行记录\n","red")
     count_error = len(open("outerror.txt", 'r').readlines())
     if count_error >= 1:
-        cprint("[+][-][-] 发现目标TXT有错误目标，已经导出至 outerror.txt ，共%d行记录" %count_error,"red")
+        cprint(f"[+][-][-] 发现目标TXT有错误目标，已经导出至 outerror.txt ，共行{count_error}记录\n","red")
 
 def main():
     logo()
@@ -79,19 +104,15 @@ def main():
     txt_name = str(input("请输入目标TXT文件名\nFileName >>> "))
     cprint("================开始读取目标TXT并批量测试站点存活================","cyan")
     # 读取目标TXT
-    with open(txt_name, 'r') as temp:
-        for url in temp.readlines():
-            url = url.strip()
-            if url=='':
-                continue
-            if ('://' not in url):
-                url = str("http://") + str(url)
-            try:
-                _thread.start_new_thread(survive, (url, ))
-                time.sleep(0.2)
-            except KeyboardInterrupt:
-                print("Ctrl + C 手动终止了进程")
-                sys.exit()
+    for url in getTask(txt_name):
+        if('://' not in url):
+            url = f"http://{url}"
+        try:
+            _thread.start_new_thread(lambda url: scanLogger(survive(url)), (url, ))
+            time.sleep(0.2)
+        except KeyboardInterrupt:
+            print("Ctrl + C 手动终止了进程")
+            sys.exit()
     end()
     sys.exit()
 
