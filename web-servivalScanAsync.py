@@ -76,7 +76,7 @@ async def asyncFetch(url,headers={},timeout=0,method:Literal['GET','POST','OPTIO
         # res = request(method=method,url=url,timeout=timeout,headers=headers,proxies="your proxy url")
         res = request(method=method,url=url,timeout=timeout,headers=headers)
         return res
-    except ConnectError as err:
+    except Exception as err:
         print("please setting proxy")
 
 def scanLogger(result:Tuple[EServival,Optional[int],str]):
