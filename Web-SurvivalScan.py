@@ -89,7 +89,7 @@ def getTask(filename=""):
                 yield url.strip()
 
 def end():
-    count_out = len(open("output.txt", 'r', encoding='utf-8').readlines())
+    count_out = len(open("output.txt", 'r').readlines())
     if count_out >= 1:
         print('\n')
         cprint(f"[+][+][+] 发现目标TXT有存活目标，已经导出至 output.txt ，共 {count_out} 行记录\n","red")
