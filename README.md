@@ -1,4 +1,4 @@
-# Web-SurvivalScan
+![Web-SurvivalScan](https://socialify.git.ci/AabyssZG/Web-SurvivalScan/image?description=1&font=Inter&forks=1&issues=1&language=1&name=1&pattern=Solid&stargazers=1&theme=Dark)
 
 **By 曾哥(AabyssZG) && jingyuexing**
 
@@ -55,3 +55,6 @@ pip3 install -r requirements.txt
 
 - `output.txt`：导出验证存活成功（状态码200）的Web资产
 - `outerror.txt`：导出其他状态码的Web资产，方便后期排查遗漏和寻找其他脆弱点
+- `report.html`：将所有资产进行HTML可视化导出，方便整理
+
+![HTML](/img/HTML-Out.png)
