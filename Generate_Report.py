@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+# coding=utf-8
+  ################
+ #   AabyssZG   #
+################
+
+from tqdm import tqdm
+from typing import Optional, Tuple
+from termcolor import cprint
+
 html='''
 
 <!DOCTYPE html>
@@ -164,6 +174,7 @@ def generaterReport():
     html = html.replace("{{}}",data)
     with open("report.html",encoding="utf-8",mode="+w") as file:
         file.write(html)
+        cprint(f"[+][+][+] 已经将存活目标生成至HTML，导出至 report.html","red")
 
 if __name__ == '__main__':
     generaterReport()
