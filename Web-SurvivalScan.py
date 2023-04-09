@@ -41,8 +41,8 @@ def logo():
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.02
-Author: 曾哥(@AabyssZG) & jingyuexing
+             Version: 1.03
+Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 '''
     print(logo0)
