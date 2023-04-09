@@ -65,9 +65,9 @@ def scanLogger(result:Tuple[EServival,Optional[int],str,int]):
     if status == EServival.SURVIVE:
         cprint(f"[+] 状态码为: {code} 存活URL为: {url} 页面长度为: {length} ","red")
     if(status == EServival.DIED):
-        cprint(f"[-] 状态码为: {code}  无法访问URL为: {url} ","yellow")
+        cprint(f"[-] 状态码为: {code} 无法访问URL为: {url} ","yellow")
     if(status == EServival.REJECT):
-        cprint(f"[-] URL为: {url} 的目标积极拒绝请求，予以跳过！", "magenta")
+        cprint(f"[-] URL为 {url} 的目标积极拒绝请求，予以跳过！", "magenta")
     
     if(status == EServival.SURVIVE):
         fileName = "output.txt"
