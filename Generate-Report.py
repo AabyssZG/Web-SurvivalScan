@@ -41,7 +41,7 @@ html='''
         li{
             list-style-type: none;
             border-radius: 0.25rem;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .p-1{
             padding: .25rem;
