@@ -9,6 +9,8 @@ from enum import Enum
 import os
 import time
 
+import Generate_Report
+
 import requests, sys, random
 from tqdm import tqdm
 from typing import Optional, Tuple
@@ -142,6 +144,7 @@ def main():
             sys.exit()
     dumpReport()
     end()
+    Generate_Report.generaterReport()
     sys.exit()
 
 if __name__ == '__main__':
