@@ -6,12 +6,14 @@
 
 import _thread
 from enum import Enum
+import os
 import time
 
 import requests, sys, random
 from tqdm import tqdm
 from typing import Optional, Tuple
 from termcolor import cprint
+from requests.compat import json
 import requests.packages.urllib3
 requests.packages.urllib3.disable_warnings()
 
@@ -19,6 +21,8 @@ class EServival(Enum):
     REJECT = -1
     SURVIVE = 1
     DIED = 0
+
+reportData = []
 
 ua = [
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36,Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36",
@@ -49,7 +53,10 @@ def file_init():
     f1.close()
     # 新建其他报错导出TXT
     f2 = open("outerror.txt", "wb+")
-    f2.close()
+    if not os.path.exists(".data"):
+        os.mkdir(".data")
+    report = open(".data/report.json","w")
+    report.close()
 
 def scanLogger(result:Tuple[EServival,Optional[int],str,int]):
     (status,code,url,length) = result
@@ -67,6 +74,7 @@ def scanLogger(result:Tuple[EServival,Optional[int],str,int]):
     if(status == EServival.SURVIVE or status == EServival.DIED):
         with open(file=fileName, mode="a") as file4:
             file4.write(f"[{code}]  {url}\n")
+    collectionReport(result)
 
 def survive(url:str):
     try:
@@ -76,11 +84,30 @@ def survive(url:str):
     except:
         cprint("[-] URL为 " + url + " 的目标积极拒绝请求，予以跳过！", "magenta")
         return (EServival.REJECT,0,url,0)
-
     if r.status_code == 200 or r.status_code == 403:
         return (EServival.SURVIVE,r.status_code,url,len(r.content))
     else:        
         return (EServival.DIED,r.status_code,url,0)
+
+def collectionReport(data):
+    global reportData
+    (status,statusCode,url,length) = data
+    state = ""
+    if status == EServival.DIED:
+        state = "deaed"
+    elif status == EServival.REJECT:
+        state = "reject"
+    elif status == EServival.SURVIVE:
+        state = "servival"
+    reportData.append({
+        "url":url,
+        "status":state,
+        "statusCode":statusCode
+    })
+
+def dumpReport():
+    with open(".data/report.json",encoding="utf-8",mode="w") as file:
+        file.write(json.dumps(reportData))
 
 def getTask(filename=""):
     if(filename != ""):
@@ -113,6 +140,7 @@ def main():
         except KeyboardInterrupt:
             print("Ctrl + C 手动终止了进程")
             sys.exit()
+    dumpReport()
     end()
     sys.exit()
 
