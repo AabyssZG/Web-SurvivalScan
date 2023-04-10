@@ -83,7 +83,7 @@ def survive(url:str):
         header = {"User-Agent": random.choice(ua)}
         requests.packages.urllib3.disable_warnings()
         r = requests.get(url=url, headers=header, timeout=6, verify=False)  # 设置超时6秒
-    except:
+    except Exception:
         cprint("[-] URL为 " + url + " 的目标积极拒绝请求，予以跳过！", "magenta")
         return (EServival.REJECT,0,url,0)
     if r.status_code == 200 or r.status_code == 403:
