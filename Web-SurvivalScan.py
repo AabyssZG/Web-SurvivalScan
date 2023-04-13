@@ -134,6 +134,9 @@ def main():
     cprint("================开始读取目标TXT并批量测试站点存活================","cyan")
     # 读取目标TXT
     for url in getTask(txt_name):
+        if((':443' in url) and ('://' not in url)):
+            url = url.replace(":443","")
+            url = f"https://{url}"
         if('://' not in url):
             url = f"http://{url}"
         try:
