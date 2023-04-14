@@ -113,9 +113,14 @@ def dumpReport():
 
 def getTask(filename=""):
     if(filename != ""):
-        with open(file=filename,mode="r") as file:
-            for url in file:
-                yield url.strip()
+        try:
+            with open(file=filename,mode="r") as file:
+                for url in file:
+                    yield url.strip()
+        except Exception:
+            with open(file=filename,mode="r",encoding='utf-8') as file:
+                for url in file:
+                    yield url.strip()
 
 def end():
     count_out = len(open("output.txt", 'r').readlines())
