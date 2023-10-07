@@ -21,7 +21,7 @@
 
 ## 📝 二、TODO
 
-* [ ] 后续更新：支持使用HTTP/HTTPS代理所有流量
+* [x] 支持使用HTTP/HTTPS代理所有流量，并可以使用HTTP认证
 * [x] 支持将 `:443` 自动识别转换为 `https://`
 * [x] 支持读取多种编码格式的TXT（ANSI和UTF-8均支持）
 * [x] 支持导出HTML文件，方便资产的可视化整理
@@ -50,6 +50,21 @@ pip3 install -r requirements.txt
 
 ```
 # python3 Web-SurvivalScan.py
+
+              ╦ ╦┌─┐┌┐
+              ║║║├┤ ├┴┐
+              ╚╩╝└─┘└─┘
+╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
+╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
+╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
+             Version: 1.04
+Author: 曾哥(@AabyssZG) && jingyuexing
+ Whoami: https://github.com/AabyssZG
+
+请输入目标TXT文件名
+FileName >>> 【TXT文件名】
+请输入代理IP和端口（无则回车）
+Proxy >>> 【HTTP认证账号:HTTP认证密码@代理IP:端口】
 ```
 
 ![Run](/img/Run.png)
