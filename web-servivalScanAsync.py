@@ -74,7 +74,7 @@ async def asyncGetUrlByFile(filename=""):
 async def asyncFetch(url,headers={},timeout=0,method:Literal['GET','POST','OPTIONS','PUT','DELETE']="GET"):
     try:
         # res = request(method=method,url=url,timeout=timeout,headers=headers,proxies="your proxy url")
-        res = request(method=method,url=url,timeout=timeout,headers=headers)
+        res = request(method=method,url=url,proxies=proxies,timeout=timeout,headers=headers)
         return res
     except Exception as err:
         print("please setting proxy")
