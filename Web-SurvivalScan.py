@@ -137,10 +137,13 @@ def main():
     # 获取目标TXT名称
     txt_name = str(input("请输入目标TXT文件名\nFileName >>> "))
     proxy_text = str(input("请输入代理IP和端口（无则回车）\nProxy >>> "))
-    proxies = {
+    if proxy_text:
+        proxies = {
         "http": "http://%(proxy)s/" % {'proxy': proxy_text},
         "https": "http://%(proxy)s/" % {'proxy': proxy_text}
-    }
+        }
+    else:
+        proxies = {}
     cprint("================开始读取目标TXT并批量测试站点存活================","cyan")
     # 读取目标TXT
     for url in getTask(txt_name):
