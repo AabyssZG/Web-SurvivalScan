@@ -43,7 +43,7 @@ def logo():
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.04
+             Version: 1.05
 Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 '''
