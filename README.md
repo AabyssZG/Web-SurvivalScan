@@ -18,7 +18,6 @@
 **如果这个工具帮助到了你，欢迎赏个Star~哈哈**
 
 
-
 ## 📝 二、TODO
 
 * [x] 支持对HTTP代理进行校验，检验代理可用性
@@ -32,13 +31,11 @@
 * [x] 智能识别目标地址 (`example.com` 和`http://example.com:8080` 以及`http://example.com` 都不会报错)
 
 
-
 ## 🚨 三、安装Python依赖库
 
 ```
 pip3 install -r requirements.txt
 ```
-
 
 
 ## 🐉 四、工具使用
@@ -77,3 +74,20 @@ Proxy >>> 【HTTP认证账号:HTTP认证密码@代理IP:端口】
 - `report.html`：将所有资产进行HTML可视化导出，方便整理
 
 ![HTML](/img/HTML-Out.png)
+
+
+## 五，感谢各位师傅
+
+### Stargazers
+
+[![Stargazers repo roster for @AabyssZG/Web-SurvivalScan](https://reporoster.com/stars/AabyssZG/Web-SurvivalScan)](https://github.com/AabyssZG/Web-SurvivalScan/stargazers)
+
+
+### Forkers
+
+[![Forkers repo roster for @AabyssZG/Web-SurvivalScan](https://reporoster.com/forks/AabyssZG/Web-SurvivalScan)](https://github.com/AabyssZG/Web-SurvivalScan/network/members)
+
+
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=AabyssZG/Web-SurvivalScan&type=Date)](https://star-history.com/#AabyssZG/Web-SurvivalScan&Date)
