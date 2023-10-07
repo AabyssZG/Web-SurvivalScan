@@ -63,6 +63,7 @@ Author: 曾哥(@AabyssZG) && jingyuexing
 FileName >>> 【TXT文件名】
 请输入代理IP和端口（无则回车）
 Proxy >>> 【HTTP认证账号:HTTP认证密码@代理IP:端口】
+Proxy >>> 【代理IP:端口（没有HTTP认证的情况下）】
 ```
 
 ![Run](/img/Run.png)
