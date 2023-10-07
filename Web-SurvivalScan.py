@@ -78,11 +78,11 @@ def scanLogger(result:Tuple[EServival,Optional[int],str,int]):
             file4.write(f"[{code}]  {url}\n")
     collectionReport(result)
 
-def survive(url:str):
+def survive(url:str,proxies:dict):
     try:
         header = {"User-Agent": random.choice(ua)}
         requests.packages.urllib3.disable_warnings()
-        r = requests.get(url=url, headers=header, timeout=6, verify=False)  # 设置超时6秒
+        r = requests.get(url=url, headers=header, proxies=proxies, timeout=6, verify=False)  # 设置超时6秒
     except Exception:
         cprint("[-] URL为 " + url + " 的目标积极拒绝请求，予以跳过！", "magenta")
         return (EServival.REJECT,0,url,0)
@@ -136,6 +136,11 @@ def main():
     file_init()
     # 获取目标TXT名称
     txt_name = str(input("请输入目标TXT文件名\nFileName >>> "))
+    proxy_text = str(input("请输入代理IP和端口（无则回车）\nProxy >>> "))
+    proxies = {
+        "http": "http://%(proxy)s/" % {'proxy': proxy_text},
+        "https": "http://%(proxy)s/" % {'proxy': proxy_text}
+    }
     cprint("================开始读取目标TXT并批量测试站点存活================","cyan")
     # 读取目标TXT
     for url in getTask(txt_name):
@@ -145,7 +150,7 @@ def main():
         if('://' not in url):
             url = f"http://{url}"
         try:
-            _thread.start_new_thread(lambda url: scanLogger(survive(url)), (url, ))
+            _thread.start_new_thread(lambda url: scanLogger(survive(url,proxies)), (url, ))
             time.sleep(0.2)
         except KeyboardInterrupt:
             print("Ctrl + C 手动终止了进程")
