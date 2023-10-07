@@ -21,6 +21,7 @@
 
 ## 📝 二、TODO
 
+* [x] 支持对HTTP代理进行校验，检验代理可用性
 * [x] 支持使用HTTP/HTTPS代理所有流量，并可以使用HTTP认证
 * [x] 支持将 `:443` 自动识别转换为 `https://`
 * [x] 支持读取多种编码格式的TXT（ANSI和UTF-8均支持）
@@ -57,7 +58,7 @@ pip3 install -r requirements.txt
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.04
+             Version: 1.05
 Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 
