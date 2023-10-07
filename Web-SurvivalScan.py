@@ -142,6 +142,23 @@ def main():
         "http": "http://%(proxy)s/" % {'proxy': proxy_text},
         "https": "http://%(proxy)s/" % {'proxy': proxy_text}
         }
+        cprint(f"================检测代理可用性中================", "cyan")
+        testurl = "https://www.baidu.com/"
+        headers = {"User-Agent": "Mozilla/5.0"}  # 响应头
+        try:
+            requests.packages.urllib3.disable_warnings()
+            res = requests.get(testurl, timeout=10, proxies=proxies, verify=False, headers=headers)
+            print(res.status_code)
+            # 发起请求,返回响应码
+            if res.status_code == 200:
+                print("GET www.baidu.com 状态码为:" + str(res.status_code))
+                cprint(f"[+] 代理可用，马上执行！", "cyan")
+        except KeyboardInterrupt:
+            print("Ctrl + C 手动终止了进程")
+            sys.exit()
+        except:
+            cprint(f"[-] 代理不可用，请更换代理！", "magenta")
+            sys.exit()
     else:
         proxies = {}
     cprint("================开始读取目标TXT并批量测试站点存活================","cyan")
