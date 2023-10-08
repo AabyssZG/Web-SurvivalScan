@@ -8,6 +8,7 @@ import _thread
 from enum import Enum
 import os
 import time
+from bs4 import BeautifulSoup
 
 import Generate_Report
 
@@ -43,7 +44,7 @@ def logo():
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.05
+             Version: 1.06
 Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 '''
@@ -60,10 +61,10 @@ def file_init():
     report = open(".data/report.json","w")
     report.close()
 
-def scanLogger(result:Tuple[EServival,Optional[int],str,int]):
-    (status,code,url,length) = result
+def scanLogger(result:Tuple[EServival,Optional[int],str,int,str]):
+    (status,code,url,length,title) = result
     if status == EServival.SURVIVE:
-        cprint(f"[+] 状态码为: {code} 存活URL为: {url} 页面长度为: {length} ","red")
+        cprint(f"[+] 状态码为: {code} 存活URL为: {url} 页面长度为: {length} 网页标题为: {title}","red")
     if(status == EServival.DIED):
         cprint(f"[-] 状态码为: {code} 无法访问URL为: {url} ","yellow")
     if(status == EServival.REJECT):
@@ -82,29 +83,37 @@ def survive(url:str,proxies:dict):
     try:
         header = {"User-Agent": random.choice(ua)}
         requests.packages.urllib3.disable_warnings()
-        r = requests.get(url=url, headers=header, proxies=proxies, timeout=6, verify=False)  # 设置超时6秒
+        r = requests.get(url=url, headers=header, proxies=proxies, timeout=10, verify=False)  # 设置超时6秒
+        soup = BeautifulSoup(r.content, 'html.parser')
+        title = str(soup.title.string)
     except Exception:
+        title = str("error")
         cprint("[-] URL为 " + url + " 的目标积极拒绝请求，予以跳过！", "magenta")
-        return (EServival.REJECT,0,url,0)
+        return (EServival.REJECT,0,url,0,title)
     if r.status_code == 200 or r.status_code == 403:
-        return (EServival.SURVIVE,r.status_code,url,len(r.content))
-    else:        
-        return (EServival.DIED,r.status_code,url,0)
+        return (EServival.SURVIVE,r.status_code,url,len(r.content),title)
+    else:
+        title = str("error")
+        return (EServival.DIED,r.status_code,url,0,title)
 
 def collectionReport(data):
     global reportData
-    (status,statusCode,url,length) = data
+    (status,statusCode,url,length,title) = data
     state = ""
     if status == EServival.DIED:
         state = "deaed"
+        titlel = ""
     elif status == EServival.REJECT:
         state = "reject"
+        titlel = ""
     elif status == EServival.SURVIVE:
         state = "servival"
+        titlel = f"{title}"
     reportData.append({
         "url":url,
         "status":state,
-        "statusCode":statusCode
+        "statusCode":statusCode,
+        "title":titlel
     })
 
 def dumpReport():
@@ -169,9 +178,10 @@ def main():
             url = f"https://{url}"
         if('://' not in url):
             url = f"http://{url}"
+        cprint(f"[.] 正在检测目标URL " + url,"cyan")
         try:
             _thread.start_new_thread(lambda url: scanLogger(survive(url,proxies)), (url, ))
-            time.sleep(0.2)
+            time.sleep(2)
         except KeyboardInterrupt:
             print("Ctrl + C 手动终止了进程")
             sys.exit()
