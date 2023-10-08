@@ -181,7 +181,7 @@ def main():
         cprint(f"[.] 正在检测目标URL " + url,"cyan")
         try:
             _thread.start_new_thread(lambda url: scanLogger(survive(url,proxies)), (url, ))
-            time.sleep(2)
+            time.sleep(0.6)
         except KeyboardInterrupt:
             print("Ctrl + C 手动终止了进程")
             sys.exit()
