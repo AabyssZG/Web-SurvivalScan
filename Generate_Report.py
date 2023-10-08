@@ -124,7 +124,7 @@ html='''
             statusCode.classList.add("w-30","flex","justify-center")
             let state = document.createElement("div")
             state.classList.add("status","w-30","flex","items-center")
-            state.innerText = item.status
+            state.innerText = item.title
             let itemType = ""
             switch(item.status){
             case "deaed":
