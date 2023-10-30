@@ -83,12 +83,12 @@ Proxy >>> 【代理IP:端口（没有HTTP认证的情况下）】
 
 ### Stargazers
 
-[![Stargazers repo roster for @AabyssZG/Web-SurvivalScan](https://reporoster.com/stars/AabyssZG/Web-SurvivalScan)](https://github.com/AabyssZG/Web-SurvivalScan/stargazers)
+[![Stargazers repo roster for @AabyssZG/Web-SurvivalScan](http://reporoster.com/stars/AabyssZG/Web-SurvivalScan)](https://github.com/AabyssZG/Web-SurvivalScan/stargazers)
 
 
 ### Forkers
 
-[![Forkers repo roster for @AabyssZG/Web-SurvivalScan](https://reporoster.com/forks/AabyssZG/Web-SurvivalScan)](https://github.com/AabyssZG/Web-SurvivalScan/network/members)
+[![Forkers repo roster for @AabyssZG/Web-SurvivalScan](http://reporoster.com/forks/AabyssZG/Web-SurvivalScan)](https://github.com/AabyssZG/Web-SurvivalScan/network/members)
 
 
 ### Star History
