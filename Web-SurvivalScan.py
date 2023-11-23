@@ -185,7 +185,7 @@ def main():
         except KeyboardInterrupt:
             print("Ctrl + C 手动终止了进程")
             sys.exit()
-        time.sleep(3)
+    time.sleep(3)
     dumpReport()
     end()
     Generate_Report.generaterReport()
