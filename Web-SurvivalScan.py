@@ -44,7 +44,7 @@ def logo():
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.06
+             Version: 1.10
 Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 '''
@@ -145,6 +145,7 @@ def main():
     file_init()
     # 获取目标TXT名称
     txt_name = str(input("请输入目标TXT文件名\nFileName >>> "))
+    dir_name = str(input("请输入需要访问的路径（无则回车）\nDirName >>> "))
     proxy_text = str(input("请输入代理IP和端口（无则回车）\nProxy >>> "))
     if proxy_text:
         proxies = {
@@ -176,8 +177,14 @@ def main():
         if((':443' in url) and ('://' not in url)):
             url = url.replace(":443","")
             url = f"https://{url}"
-        if('://' not in url):
+        elif('://' not in url):
             url = f"http://{url}"
+        if str(url[-1]) != "/":
+            url = url + "/"
+        if (dir_name != "") and (str(dir_name[0]) == "/"):
+            url = url + dir_name[1:]
+        else:
+            url = url + dir_name
         cprint(f"[.] 正在检测目标URL " + url,"cyan")
         try:
             _thread.start_new_thread(lambda url: scanLogger(survive(url,proxies)), (url, ))
