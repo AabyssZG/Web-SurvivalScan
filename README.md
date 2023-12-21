@@ -20,6 +20,7 @@
 
 ## 📝 二、TODO
 
+* [x] 支持批量访问固定路径（验证简单漏洞的时候巨有效）
 * [x] 支持在导出HTML界面里面显示标题，更方便确认资产信息
 * [x] 支持对HTTP代理进行校验，检验代理可用性
 * [x] 支持使用HTTP/HTTPS代理所有流量，并可以使用HTTP认证
@@ -56,12 +57,14 @@ pip3 install -r requirements.txt
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.06
+             Version: 1.10
 Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 
 请输入目标TXT文件名
 FileName >>> 【TXT文件名】
+请输入需要访问的路径（无则回车）
+DirName >>> 【需要批量访问的路径】
 请输入代理IP和端口（无则回车）
 Proxy >>> 【HTTP认证账号:HTTP认证密码@代理IP:端口】
 Proxy >>> 【代理IP:端口（没有HTTP认证的情况下）】
