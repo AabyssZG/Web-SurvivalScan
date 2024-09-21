@@ -20,6 +20,7 @@
 
 ## 📝 二、TODO
 
+* [x] 修复网页Title为空导致报错的Bug
 * [x] 支持批量访问固定路径（验证简单漏洞的时候巨有效）
 * [x] 支持在导出HTML界面里面显示标题，更方便确认资产信息
 * [x] 支持对HTTP代理进行校验，检验代理可用性
@@ -57,7 +58,7 @@ pip3 install -r requirements.txt
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.10
+             Version: 1.11
 Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 
