@@ -44,7 +44,7 @@ def logo():
 ╔═╗┬ ┬┬─┐┬  ┬┬┬  ┬┌─┐┬  ╔═╗┌─┐┌─┐┌┐┌
 ╚═╗│ │├┬┘└┐┌┘│└┐┌┘├─┤│  ╚═╗│  ├─┤│││
 ╚═╝└─┘┴└─ └┘ ┴ └┘ ┴ ┴┴─┘╚═╝└─┘┴ ┴┘└┘
-             Version: 1.10
+             Version: 1.11
 Author: 曾哥(@AabyssZG) && jingyuexing
  Whoami: https://github.com/AabyssZG
 '''
@@ -83,9 +83,12 @@ def survive(url:str,proxies:dict):
     try:
         header = {"User-Agent": random.choice(ua)}
         requests.packages.urllib3.disable_warnings()
-        r = requests.get(url=url, headers=header, proxies=proxies, timeout=10, verify=False)  # 设置超时6秒
+        r = requests.get(url=url, headers=header, proxies=proxies, timeout=10, verify=False)  # 设置超时10秒
         soup = BeautifulSoup(r.content, 'html.parser')
-        title = str(soup.title.string)
+        if soup.title == None:
+            title = "Null"
+        else:
+            title = str(soup.title.string)
     except Exception:
         title = str("error")
         cprint("[-] URL为 " + url + " 的目标积极拒绝请求，予以跳过！", "magenta")
