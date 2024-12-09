@@ -1,6 +1,6 @@
 termcolor==1.1.0
 tqdm==4.62.3
-requests==2.28.1
+requests==2.27.1
 urllib3==1.26.4
 aiofiles==22.1.0
 httpx==0.23.3
